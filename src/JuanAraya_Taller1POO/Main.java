@@ -41,6 +41,7 @@ public class Main {
 				
 			}
 			lectura.close();
+			System.out.println("Hay "+usuariosTotales +" usuarios");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
