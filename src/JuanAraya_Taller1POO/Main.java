@@ -27,7 +27,7 @@ public class Main {
 		String[] registroActividad= new String[registrosMaximos];
 		int registrosTotales=0;
 		
-		
+		//lectura del archivo Usuarios.txt
 		try {
 			File archivo = new File("Usuarios.txt");
 			Scanner lectura = new Scanner(archivo);
@@ -46,6 +46,45 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//lectura del archivo Registros.txt
+		try {
+			File archivo2 = new File("Registros.txt");
+			Scanner lectura2= new Scanner(archivo2);
+			registrosTotales=0;
+			while(lectura2.hasNextLine()&&registrosTotales<registrosMaximos) {
+				String linea= lectura2.nextLine();
+				String[] partes= linea.split(";");
+				registroUsuario[registrosTotales]= partes[0];
+				registroFecha[registrosTotales]= partes[1];
+				registroHoras[registrosTotales]= Integer.parseInt(partes[2]);
+				registroActividad[registrosTotales]= partes[3];
+				registrosTotales++;
+				
+			}
+			lectura2.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//empezando con los Menus
+		int opcion = 0;
+		do {
+			System.out.println("Menu Inicial:");
+			System.out.println("Seleccione una opción");
+			System.out.println("1- Menu usuarios");
+			System.out.println("2- Menu analisis");
+			System.out.println("3- Salir");
+			
+			try {
+				opcion = Integer.parseInt(scanner.nextLine());
+			} catch(NumberFormatException e) {
+				System.out.println("Opcion Invalida, Ingrese un numero válido");
+			}
+		}while(opcion!=3);
+		
+		scanner.close();
+		
 		
 	}
 
