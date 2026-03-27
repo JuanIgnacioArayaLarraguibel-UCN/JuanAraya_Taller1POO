@@ -115,7 +115,32 @@ public class Main {
                             opcionUsuario = 0;
                         }
                         
+                        if(opcionUsuario==1) {
+                        	if(registrosTotales<registrosMaximos) {
+                        		System.out.print("Ingrese fecha en formato DD/MM/AAAA: ");
+                        		String fecha= scanner.nextLine();
+                        		System.out.print("Ingrese hora: ");
+                        		int horas;
+                        		try {
+                        			horas = Integer.parseInt(scanner.nextLine());
+                        			System.out.print("Ingresar actividad: ");
+                        			String actividad = scanner.nextLine();
+                        			registroUsuario[registrosTotales]= usuarioActual;
+                        			registroFecha[registrosTotales]= fecha;
+                        			registroHoras[registrosTotales]=horas;
+                        			registroActividad[registrosTotales]=actividad;
+                        			registrosTotales++;
+                        			
+                        			
+                        		}catch (NumberFormatException e) {
+                        			System.out.println("Hora invalida");
+                        		}
+                        	}
+                        }
+                        
 					}while(opcionUsuario==5);
+				} else {
+					System.out.println("Usuario y/o contraseña incorrecto/s :c");
 				}
 			}
 		}while(opcion!=3);
