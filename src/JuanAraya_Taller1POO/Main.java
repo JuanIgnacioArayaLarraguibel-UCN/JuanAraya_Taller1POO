@@ -3,8 +3,11 @@ package JuanAraya_Taller1POO;
 //RUT: 21.566.260-8
 //Carrera: Ingenieria en Tecnologias de Información (ITI)
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -131,10 +134,22 @@ public class Main {
                         			registroActividad[registrosTotales]=actividad;
                         			registrosTotales++;
                         			
-                        			
+                        			try {
+                        				BufferedWriter writer = new BufferedWriter(new FileWriter("Registros.txt"));
+                        				for(int i = 0; i<registrosTotales;i++) {
+                        					writer.write(registroUsuario[i]+ ";"+registroFecha[i]+";"+registroHoras[i]+";"+registroActividad[i]);
+                        					writer.newLine();
+                        				}
+                        				writer.close();
+                        				System.out.println("Todo registrado");
+                        			}catch(IOException e) {
+                        				System.out.println("Error");
+                        			}
                         		}catch (NumberFormatException e) {
                         			System.out.println("Hora invalida");
                         		}
+                        	}else {
+                        		System.out.println("Limite de "+registrosMaximos+" alcanzado");
                         	}
                         }
                         
