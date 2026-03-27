@@ -15,6 +15,7 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		int usuariosMaximo= 10;
 		int registrosMaximos= 300;
+		String usuarioActual="";
 		//listas para los usuarios
 		String[] usuarioNombres= new String[usuariosMaximo];
 		String[] contraseñaUsuarios= new String[usuariosMaximo];
@@ -26,7 +27,6 @@ public class Main {
 		int[] registroHoras= new int[registrosMaximos];
 		String[] registroActividad= new String[registrosMaximos];
 		int registrosTotales=0;
-		
 		//lectura del archivo Usuarios.txt
 		try {
 			File archivo = new File("Usuarios.txt");
@@ -75,11 +75,48 @@ public class Main {
 			System.out.println("1- Menu usuarios");
 			System.out.println("2- Menu analisis");
 			System.out.println("3- Salir");
-			
+			// por si no ingresan un numero
 			try {
 				opcion = Integer.parseInt(scanner.nextLine());
 			} catch(NumberFormatException e) {
 				System.out.println("Opcion Invalida, Ingrese un numero válido");
+			}
+			
+			if(opcion ==1) {
+				System.out.print("Usuario: ");
+				String usuario = scanner.nextLine();
+				System.out.print("Contraseña: ");
+				String contraseña = scanner.nextLine();
+				boolean validar= false;
+				
+				for(int i=0;i<usuariosTotales;i++) {
+					if(usuarioNombres[i].equals(usuario)&&contraseñaUsuarios[i].equals(contraseña)) {
+						validar = true;
+						usuarioActual= usuario;
+						break;
+					}
+				}
+				if(validar) {
+					System.out.println("Bienevenid@ "+usuarioActual);
+					int opcionUsuario = 0;
+					do {
+						System.out.println("Menú Usuarios");
+                        System.out.println("1) Registrar actividad");
+                        System.out.println("2) Modificar actividad");
+                        System.out.println("3) Eliminar actividad");
+                        System.out.println("4) Cambiar contraseña");
+                        System.out.println("5) Salir");
+                        System.out.print("Selecciones una opción: ");
+                        
+                        try {
+                            opcionUsuario = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("No valido");
+                            opcionUsuario = 0;
+                        }
+                        
+					}while(opcionUsuario==5);
+				}
 			}
 		}while(opcion!=3);
 		
