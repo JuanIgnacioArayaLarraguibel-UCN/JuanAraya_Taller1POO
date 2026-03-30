@@ -182,6 +182,31 @@ public class Main {
                         				System.out.println("2) Duracion");
                         				System.out.println("3) Tipo actividad");
                         				
+                        				int opcionSeleccion =0;
+                        				try {
+                        					opcionSeleccion=Integer.parseInt(scanner.nextLine());
+                        					
+                        					if(opcionSeleccion==1) {
+                        						System.out.print("Elija la fecha en formato DD/MM/AA: ");
+                        						
+                        						try {
+                        							//aca con un poco de ayuda para usar tambien el buffered writer
+                        							BufferedWriter writer = new BufferedWriter(new FileWriter("Registros.txt"));
+                        							for(int i=0;i<registrosTotales;i++) {
+                        								writer.write(registroUsuario[i]+";"+registroFecha[i]+";"+registroHoras[i]+";"+registroActividad[i]);
+                        								writer.newLine();
+                        							}
+                        							writer.close();
+                        							
+                        						}catch(IOException e) {
+                        							System.out.println("No se pudo guardar :/");
+                        							
+                        						}
+                        					}
+                        					
+                        				}catch(NumberFormatException e){
+                        					
+                        				}
                         			}
                         		}
                         	}
