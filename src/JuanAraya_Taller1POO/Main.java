@@ -152,64 +152,7 @@ public class Main {
                         		System.out.println("Limite de "+registrosMaximos+" alcanzado");
                         	}
                         }else if(opcionUsuario==2) {
-                        	int[] indiceUsuario = new int[registrosMaximos];
-                        	int contadorIndice=0;
-                        	for(int i=0;i<registrosTotales;i++) {
-                        		if(registroUsuario[i].equals(usuarioActual)) {
-                        			indiceUsuario[contadorIndice]=i;
-                        			contadorIndice++;
-                        		}
-                        	}
-                        	if(contadorIndice>0) {
-                        		System.out.println("Seleccione la actividad a modificar");
-                        		System.out.println("0) Regresar: ");
-                        		for(int i=0; i<contadorIndice;i++) {
-                        			int indice = indiceUsuario[i];
-                        			System.out.println((i+1)+") "+registroUsuario[indice]+";"+registroFecha[indice]+";"+registroHoras[indice]+";"+registroActividad[indice]);
-                        		}
-                        		System.out.println("Seleccione: ");
-                        		int opcionModificar=0;
-                        		try {
-                        			opcionModificar= Integer.parseInt(scanner.nextLine());
-                        		}catch(NumberFormatException e) {
-                        			System.out.println("Ingresar opción valida");
-                        			if(opcionModificar==0) {
-                        				
-                        			}else if(opcionModificar>=1&&opcionModificar<=contadorIndice) {
-                        				int indiceReal= indiceUsuario[opcionModificar-1];
-                        				System.out.println("0) Regresar");
-                        				System.out.println("1) Fecha");
-                        				System.out.println("2) Duracion");
-                        				System.out.println("3) Tipo actividad");
-                        				
-                        				int opcionSeleccion =0;
-                        				try {
-                        					opcionSeleccion=Integer.parseInt(scanner.nextLine());
-                        					
-                        					if(opcionSeleccion==1) {
-                        						System.out.print("Elija la fecha en formato DD/MM/AA: ");
-                        						
-                        						try {
-                        							//aca con un poco de ayuda para usar tambien el buffered writer
-                        							BufferedWriter writer = new BufferedWriter(new FileWriter("Registros.txt"));
-                        							for(int i=0;i<registrosTotales;i++) {
-                        								writer.write(registroUsuario[i]+";"+registroFecha[i]+";"+registroHoras[i]+";"+registroActividad[i]);
-                        								writer.newLine();
-                        							}
-                        							writer.close();
-                        							
-                        						}catch(IOException e) {
-                        							System.out.println("No se pudo guardar :/");
-                        							
-                        						}
-                        					}
-                        					
-                        				}catch(NumberFormatException e){
-                        					
-                        				}
-                        			}
-                        		}
-                        	}
+                        	
                         }
                         
 					}while(opcionUsuario==5);
