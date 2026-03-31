@@ -152,7 +152,111 @@ public class Main {
                         		System.out.println("Limite de "+registrosMaximos+" alcanzado");
                         	}
                         }else if(opcionUsuario==2) {
-                        	
+                        	//rehaciendo la modificacion de actividad
+                        	int[] indiceUsuario= new int[registrosMaximos];
+                        	int contadorIndice=0;
+                        	for(int i=0;i<registrosTotales;i++) {
+                        		if(registroUsuario[i].equals(usuarioActual)) {
+                        			indiceUsuario[contadorIndice]= i;
+                        			contadorIndice++;
+                        			
+                        		}
+                        	}
+                        	if(contadorIndice>0) {
+                        		System.out.println("Seleccione la actividad a modificar:");
+                        		System.out.println("0)Volver");
+                        		for(int i=0;i<contadorIndice;i++) {
+                        			int idx = indiceUsuario[i];
+                        			System.out.println((i+1)+") "+registroUsuario[idx]+";"+registroFecha[idx]+";"+registroHoras[idx]+";"+registroActividad[idx]);
+                        		}
+                        		System.out.print("Seleccionar: ");
+                        		int seleccion=0;
+                        		try {
+                        			seleccion = Integer.parseInt(scanner.nextLine());
+                        			if(seleccion ==0) {
+                        				
+                        			}else if(seleccion >= 1&& seleccion<= contadorIndice) {
+                        				int indiceReal= indiceUsuario[seleccion-1];
+                        				
+                        				System.out.println("Seleccionar formato a modificar:");
+                        				System.out.println("0) Volver");
+                        				System.out.println("1) Fecha");
+                        				System.out.println("2) Horas");
+                        				System.out.println("3) Tipo actividad");
+                        				System.out.print("Elija: ");
+                        				
+                        				int opcionModificar=0;
+                        				try {
+                        					opcionModificar= Integer.parseInt(scanner.nextLine());
+                        					
+                        					if(opcionModificar==1) {
+                        						System.out.print("Ingrese fecha en el formato DD/MM/AA: ");
+                        						registroFecha[indiceReal]= scanner.nextLine();
+                        						System.out.println("Actividad modificada");
+                        						
+                        						try {
+                        							BufferedWriter writer= new BufferedWriter(new FileWriter("Registros.txt"));
+                        							for(int i=0;i<registrosTotales;i++) {
+                        								writer.write(registroUsuario[i]+";"+registroFecha[i]+";"+registroHoras[i]+";"+registroActividad[i]);
+                        								writer.newLine();
+                        							}
+                        							writer.close();
+                        							
+                        						}catch(IOException e) {
+                        							System.out.println("Error");
+                        						}
+                        					}else if(opcionModificar==2) {
+                        						System.out.print("Ingrese horas: ");
+                        						try {
+                        							registroHoras[indiceReal]=Integer.parseInt(scanner.nextLine());
+                        							System.out.println("Actividad modificada");
+                        							
+                        							try {
+                            							BufferedWriter writer= new BufferedWriter(new FileWriter("Registros.txt"));
+                            							for(int i=0;i<registrosTotales;i++) {
+                            								writer.write(registroUsuario[i]+";"+registroFecha[i]+";"+registroHoras[i]+";"+registroActividad[i]);
+                            								writer.newLine();
+                            							}
+                            							writer.close();
+                            							
+                            						}catch(IOException e) {
+                            							System.out.println("Error");
+                            						}
+                        						}catch(NumberFormatException e) {
+                        							System.out.println("Invalido");
+                        						}
+                        					}else if(opcionModificar==3) {
+                        						System.out.print("Ingrese nueva actividad: ");
+                        						registroActividad[indiceReal]=scanner.nextLine();
+                        						System.out.println("Actividad modificada");
+                        						
+                        						try {
+                        							BufferedWriter writer= new BufferedWriter(new FileWriter("Registros.txt"));
+                        							for(int i=0;i<registrosTotales;i++) {
+                        								writer.write(registroUsuario[i]+";"+registroFecha[i]+";"+registroHoras[i]+";"+registroActividad[i]);
+                        								writer.newLine();
+                        							}
+                        							writer.close();
+                        							
+                        						}catch(IOException e) {
+                        							System.out.println("Error");
+                        						}
+                        					}else if(opcionModificar==0) {
+                        						
+                        					}else {
+                        						System.out.println("Ingrese una opcion valida");
+                        					}
+                        					
+                        				}catch(NumberFormatException e) {
+                        					System.out.println("Invalido");
+                        				}
+                        			}else {
+                        				System.out.println("Invalido");
+                        			}
+                        		}catch(NumberFormatException e) {
+                        			System.out.println("Numero invalido");
+                        		}
+                        	}
                         }
                         
 					}while(opcionUsuario==5);
