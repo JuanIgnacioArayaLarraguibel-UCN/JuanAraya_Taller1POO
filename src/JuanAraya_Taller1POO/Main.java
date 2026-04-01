@@ -256,6 +256,61 @@ public class Main {
                         		}catch(NumberFormatException e) {
                         			System.out.println("Numero invalido");
                         		}
+                        	} else {
+                        		System.out.println("No hay actividades para modificar");
+                        	}
+                        } else if(opcionUsuario==3) {
+                        	int[] indiceUsuario = new int[registrosMaximos];
+                        	int contadorIndice=0;
+                        	for(int i=0;i<registrosTotales;i++) {
+                        		if(registroUsuario[i].equals(usuarioActual)) {
+                        			indiceUsuario[contadorIndice]=1;
+                        			contadorIndice++;
+                        		}
+                        	}
+                        	if(contadorIndice>0) {
+                        		System.out.println("Que actividad desea eliminar?");
+                        		System.out.println("0) Volver");
+                        		for(int i =0;i<contadorIndice;i++) {
+                        			int idx = indiceUsuario[i];
+                        			System.out.println((i+1)+") "+registroUsuario[idx]+";"+registroFecha[idx]+";"+registroHoras[idx]+";"+registroActividad[idx]);
+                        		}
+                        		System.out.print("Elija:");
+                        		int seleccion;
+                        		try {
+                        			seleccion = Integer.parseInt(scanner.nextLine());
+                        			if(seleccion==0) {
+                        				
+                        			}else if(seleccion>=1&&seleccion<=contadorIndice) {
+                        				int indiceReal = indiceUsuario[seleccion-1];
+                        				for(int i=indiceReal;i<registrosTotales-1;i++) {
+                        					registroUsuario[i]=registroUsuario[i+1];
+                        					registroFecha[i]=registroFecha[i+1];
+                        					registroHoras[i]=registroHoras[i+1];
+                        					registroActividad[i]=registroActividad[i+1];
+                        				}
+                        				registrosTotales--;
+                        				
+                        				try {
+                        					BufferedWriter writer= new  BufferedWriter(new FileWriter("Registros.txt"));
+                        					for(int i=0;i<registrosTotales;i++) {
+                        						writer.write(registroUsuario[i]+";"+registroFecha[i]+";"+registroHoras[i]+";"+registroActividad[i]);
+                        						writer.newLine();
+                        					}
+                        					writer.close();
+                        					System.out.println("Actividad eliminada");
+                        				} catch(IOException e) {
+                        					System.out.println("Error");
+                        				}
+                        			}else {
+                        				System.out.println("Seleccion invalida");
+                        			}
+                        			
+                        		}catch(NumberFormatException e) {
+                        			System.out.println("Numero invalido");
+                        		}
+                        	}else {
+                        		System.out.println("No hay actividades pa eliminar");
                         	}
                         }
                         
