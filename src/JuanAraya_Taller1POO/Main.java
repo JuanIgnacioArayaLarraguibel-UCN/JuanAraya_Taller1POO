@@ -312,6 +312,33 @@ public class Main {
                         	}else {
                         		System.out.println("No hay actividades pa eliminar");
                         	}
+                        }else if(opcionUsuario==4) {
+                        	//el cambio de contraseña
+                        	System.out.print("Ingresar nueva contraseña: ");
+                        	String nuevaContraseña= scanner.nextLine();
+                        	
+                        	for(int i=0;i<usuariosTotales;i++) {
+                        		if(usuarioNombres[i].equals(usuarioActual)) {
+                        			contraseñaUsuarios[i]=nuevaContraseña;
+                        			break;
+                        		}
+                        	}
+                        	try {
+                        		BufferedWriter writer= new BufferedWriter(new FileWriter("Usuarios.txt"));
+                        		for(int i =0;i<usuariosTotales;i++) {
+                        			writer.write(usuarioNombres[i]+";"+contraseñaUsuarios[i]);
+                        			writer.newLine();
+                        		}
+                        		writer.close();
+                        		System.out.println("Contraseña cambiada");
+                        		
+                        	}catch(IOException e) {
+                        		System.out.println("Error");
+                        	}
+                        }else if(opcionUsuario==5) {
+                        	System.out.println("Saliendo del menu usuarios");
+                        }else {
+                        	System.out.println("opcion invalida");
                         }
                         
 					}while(opcionUsuario==5);
