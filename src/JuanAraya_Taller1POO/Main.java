@@ -494,6 +494,10 @@ public class Main {
 				}while(opcionAnalisis!=5);
 				
 				
+			}else if(opcion==3) {
+				System.out.println("adiositooooo");
+			}else {
+				System.out.println("Ingresar opcion valida pls");
 			}
 			
 		}while(opcion!=3);
