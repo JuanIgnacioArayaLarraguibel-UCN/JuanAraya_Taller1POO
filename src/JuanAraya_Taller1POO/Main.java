@@ -364,6 +364,41 @@ public class Main {
 				}
 				
 				if(opcionAnalisis==1) {
+					//la actividad mas realizada en global
+					if(registrosTotales>0) {
+						String[] actividades = new String[registrosMaximos];
+						int[] conteos= new int[registrosMaximos];
+						int totalActividadesUnicas=0;
+						
+						for(int i=0;i<registrosTotales;i++) {
+							String actividadActual=registroActividad[i];
+							boolean encontrada=false;
+							for(int j=0;j<totalActividadesUnicas;j++) {
+								if(actividades[j].equals(actividadActual)) {
+									conteos[j]+=registroHoras[i];
+									encontrada=true;
+									break;
+								}
+							}
+							if(!encontrada) {
+								actividades[totalActividadesUnicas]=actividadActual;
+								conteos[totalActividadesUnicas]=registroHoras[i];
+								totalActividadesUnicas++;
+							}
+						}
+						int horasMaximas=-1;
+						String actividadMaxima="";
+						for(int i=0;i<totalActividadesUnicas;i++) {
+							if(conteos[i]>horasMaximas) {
+								horasMaximas=conteos[i];
+								actividadMaxima=actividades[i];
+							}
+						}
+						System.out.println("La actividad mas realizada en global es:");
+						System.out.println(actividadMaxima+" en "+horasMaximas+" horas");
+					}else {
+						System.out.println("no hay actividades para evaluar");
+					}
 					
 				}
 				
