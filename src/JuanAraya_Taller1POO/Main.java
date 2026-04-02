@@ -348,135 +348,154 @@ public class Main {
 			}else if(opcion==2) {
 				//aca esta el menu de analisis
 				int opcionAnalisis = 0;
-				System.out.println("Menu Analisis");
-				System.out.println("1) Actividad mas realizada global");
-				System.out.println("2) Actividad mas realizada por usuario");
-				System.out.println("3) Usuario con mayor procastinacion");
-				System.out.println("4) Ver todas las actividades");
-				System.out.println("5) Salir");
-				System.out.print("Seleccione: ");
-				
-				try {
-					opcionAnalisis= Integer.parseInt(scanner.nextLine());
-				}catch(NumberFormatException e) {
-					System.out.println("Error no valido");
-					opcionAnalisis=0;
-				}
-				
-				if(opcionAnalisis==1) {
-					//la actividad mas realizada en global
-					if(registrosTotales>0) {
-						String[] actividades = new String[registrosMaximos];
-						int[] conteos= new int[registrosMaximos];
-						int totalActividadesUnicas=0;
-						
-						for(int i=0;i<registrosTotales;i++) {
-							String actividadActual=registroActividad[i];
-							boolean encontrada=false;
-							for(int j=0;j<totalActividadesUnicas;j++) {
-								if(actividades[j].equals(actividadActual)) {
-									conteos[j]+=registroHoras[i];
-									encontrada=true;
-									break;
-								}
-							}
-							if(!encontrada) {
-								actividades[totalActividadesUnicas]=actividadActual;
-								conteos[totalActividadesUnicas]=registroHoras[i];
-								totalActividadesUnicas++;
-							}
-						}
-						int horasMaximas=-1;
-						String actividadMaxima="";
-						for(int i=0;i<totalActividadesUnicas;i++) {
-							if(conteos[i]>horasMaximas) {
-								horasMaximas=conteos[i];
-								actividadMaxima=actividades[i];
-							}
-						}
-						System.out.println("La actividad mas realizada en global es:");
-						System.out.println(actividadMaxima+" en "+horasMaximas+" horas");
-					}else {
-						System.out.println("no hay actividades para evaluar");
+				do {
+					
+					System.out.println("Menu Analisis");
+					System.out.println("1) Actividad mas realizada global");
+					System.out.println("2) Actividad mas realizada por usuario");
+					System.out.println("3) Usuario con mayor procastinacion");
+					System.out.println("4) Ver todas las actividades");
+					System.out.println("5) Salir");
+					System.out.print("Seleccione: ");
+					
+					try {
+						opcionAnalisis= Integer.parseInt(scanner.nextLine());
+					}catch(NumberFormatException e) {
+						System.out.println("Error no valido");
+						opcionAnalisis=0;
 					}
 					
-				}else if(opcionAnalisis==2) {
-					//actividad por usuario
-					if(registrosTotales>0) {
-						System.out.println("Actividades realizadas por usuario: ");
-						for(int i=0;i<usuariosTotales;i++) {
-							String usuario = usuarioNombres[i];
+					if(opcionAnalisis==1) {
+						//la actividad mas realizada en global
+						if(registrosTotales>0) {
 							String[] actividades = new String[registrosMaximos];
 							int[] conteos= new int[registrosMaximos];
 							int totalActividadesUnicas=0;
 							
-							for(int j=0;j<registrosTotales;j++) {
-								if(registroUsuario[j].equals(usuario)) {
-									String actividadActual= registroActividad[j];
-									boolean encontrada = false;
-									
-									for(int z=0;z<totalActividadesUnicas;z++) {
-										if(actividades[z].equals(actividadActual)) {
-											conteos[z]+=registroHoras[j];
-											encontrada=true;
-											break;
+							for(int i=0;i<registrosTotales;i++) {
+								String actividadActual=registroActividad[i];
+								boolean encontrada=false;
+								for(int j=0;j<totalActividadesUnicas;j++) {
+									if(actividades[j].equals(actividadActual)) {
+										conteos[j]+=registroHoras[i];
+										encontrada=true;
+										break;
+									}
+								}
+								if(!encontrada) {
+									actividades[totalActividadesUnicas]=actividadActual;
+									conteos[totalActividadesUnicas]=registroHoras[i];
+									totalActividadesUnicas++;
+								}
+							}
+							int horasMaximas=-1;
+							String actividadMaxima="";
+							for(int i=0;i<totalActividadesUnicas;i++) {
+								if(conteos[i]>horasMaximas) {
+									horasMaximas=conteos[i];
+									actividadMaxima=actividades[i];
+								}
+							}
+							System.out.println("La actividad mas realizada en global es:");
+							System.out.println(actividadMaxima+" en "+horasMaximas+" horas");
+						}else {
+							System.out.println("no hay actividades para evaluar");
+						}
+						
+					}else if(opcionAnalisis==2) {
+						//actividad por usuario
+						if(registrosTotales>0) {
+							System.out.println("Actividades realizadas por usuario: ");
+							for(int i=0;i<usuariosTotales;i++) {
+								String usuario = usuarioNombres[i];
+								String[] actividades = new String[registrosMaximos];
+								int[] conteos= new int[registrosMaximos];
+								int totalActividadesUnicas=0;
+								
+								for(int j=0;j<registrosTotales;j++) {
+									if(registroUsuario[j].equals(usuario)) {
+										String actividadActual= registroActividad[j];
+										boolean encontrada = false;
+										
+										for(int z=0;z<totalActividadesUnicas;z++) {
+											if(actividades[z].equals(actividadActual)) {
+												conteos[z]+=registroHoras[j];
+												encontrada=true;
+												break;
+											}
+										}
+										if(!encontrada) {
+											actividades[totalActividadesUnicas]=actividadActual;
+											conteos[totalActividadesUnicas]=registroHoras[j];
+											totalActividadesUnicas++;
 										}
 									}
-									if(!encontrada) {
-										actividades[totalActividadesUnicas]=actividadActual;
-										conteos[totalActividadesUnicas]=registroHoras[j];
-										totalActividadesUnicas++;
-									}
 								}
-							}
-							
-							if(totalActividadesUnicas>0) {
-								int horasMaximas= -1;
-								String actividadMaxima="";
-								for(int j=0;j<totalActividadesUnicas;j++) {
-									if(conteos[j]>horasMaximas) {
-										horasMaximas=conteos[j];
-										actividadMaxima=actividades[j];
+								
+								if(totalActividadesUnicas>0) {
+									int horasMaximas= -1;
+									String actividadMaxima="";
+									for(int j=0;j<totalActividadesUnicas;j++) {
+										if(conteos[j]>horasMaximas) {
+											horasMaximas=conteos[j];
+											actividadMaxima=actividades[j];
+										}
 									}
+									System.out.println(usuario+" >>> "+actividadMaxima+" con "+horasMaximas+" horas");
+								}else {
+									System.out.println("no hay actividades");
 								}
-								System.out.println(usuario+" >>> "+actividadMaxima+" con "+horasMaximas+" horas");
-							}else {
-								System.out.println("no hay actividades");
+								
 							}
-							
+						}else {
+							System.out.println("no hay nada para ver");
 						}
-					}else {
-						System.out.println("no hay nada para ver");
-					}
-				}else if(opcionAnalisis==3) {
-					//mayor procrastinacion
-					if(registrosTotales>0) {
-						int[] horasPorUsuario= new int[usuariosMaximo];
-						for(int i=0;i<registrosTotales;i++) {
-							String usuario= registroUsuario[i];
+					}else if(opcionAnalisis==3) {
+						//mayor procrastinacion
+						if(registrosTotales>0) {
+							int[] horasPorUsuario= new int[usuariosMaximo];
+							for(int i=0;i<registrosTotales;i++) {
+								String usuario= registroUsuario[i];
+								for(int j=0;j<usuariosTotales;j++) {
+									if(usuarioNombres[j].equals(usuario)) {
+										horasPorUsuario[j]+=registroHoras[i];
+										break;
+									}
+								}
+							}
+							int horasMaximas= -1;
+							String maximoUsuarioHora="";
 							for(int j=0;j<usuariosTotales;j++) {
-								if(usuarioNombres[j].equals(usuario)) {
-									horasPorUsuario[j]+=registroHoras[i];
-									break;
+								if(horasPorUsuario[j]>horasMaximas) {
+									horasMaximas= horasPorUsuario[j];
+									maximoUsuarioHora= usuarioNombres[j];
 								}
 							}
+							System.out.println("Usuario con mayor procrastinacion:");
+							System.out.println(maximoUsuarioHora+" con "+horasMaximas+" horas");
+						}else {
+							System.out.println("no hay nada para ver");
 						}
-						int horasMaximas= -1;
-						String maximoUsuarioHora="";
-						for(int j=0;j<usuariosTotales;j++) {
-							if(horasPorUsuario[j]>horasMaximas) {
-								horasMaximas= horasPorUsuario[j];
-								maximoUsuarioHora= usuarioNombres[j];
+					}else if(opcionAnalisis==4) {
+						//ver actividades en total
+						if(registrosTotales>0) {
+							System.out.println("Todas las actividades");
+							for(int i=0;i<registrosTotales;i++) {
+								System.out.println((i+1)+") "+registroUsuario[i]+";"+registroFecha[i]+";"+registroHoras[i]+";"+registroActividad[i]);
 							}
+						}else {
+							System.out.println("no hay nada");
 						}
-						System.out.println("Usuario con mayor procrastinacion:");
-						System.out.println(maximoUsuarioHora+" con "+horasMaximas+" horas");
+					}else if(opcionAnalisis==5) {
+						System.out.println("Saliendo del menu analisis");
 					}else {
-						System.out.println("no hay nada para ver");
+						System.out.println("Ingresar opcion valida");
 					}
-				}
+				}while(opcionAnalisis!=5);
+				
 				
 			}
+			
 		}while(opcion!=3);
 		
 		scanner.close();
