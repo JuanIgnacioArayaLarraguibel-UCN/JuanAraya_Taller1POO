@@ -445,6 +445,8 @@ public class Main {
 							}
 							
 						}
+					}else {
+						System.out.println("no hay nada para ver");
 					}
 				}
 				
