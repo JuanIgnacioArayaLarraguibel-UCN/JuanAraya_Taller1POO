@@ -417,7 +417,7 @@ public class Main {
 									
 									for(int z=0;z<totalActividadesUnicas;z++) {
 										if(actividades[z].equals(actividadActual)) {
-											conteos[z]+=registroHoras[z];
+											conteos[z]+=registroHoras[j];
 											encontrada=true;
 											break;
 										}
@@ -445,6 +445,32 @@ public class Main {
 							}
 							
 						}
+					}else {
+						System.out.println("no hay nada para ver");
+					}
+				}else if(opcionAnalisis==3) {
+					//mayor procrastinacion
+					if(registrosTotales>0) {
+						int[] horasPorUsuario= new int[usuariosMaximo];
+						for(int i=0;i<registrosTotales;i++) {
+							String usuario= registroUsuario[i];
+							for(int j=0;j<usuariosTotales;j++) {
+								if(usuarioNombres[j].equals(usuario)) {
+									horasPorUsuario[j]+=registroHoras[i];
+									break;
+								}
+							}
+						}
+						int horasMaximas= -1;
+						String maximoUsuarioHora="";
+						for(int j=0;j<usuariosTotales;j++) {
+							if(horasPorUsuario[j]>horasMaximas) {
+								horasMaximas= horasPorUsuario[j];
+								maximoUsuarioHora= usuarioNombres[j];
+							}
+						}
+						System.out.println("Usuario con mayor procrastinacion:");
+						System.out.println(maximoUsuarioHora+" con "+horasMaximas+" horas");
 					}else {
 						System.out.println("no hay nada para ver");
 					}
