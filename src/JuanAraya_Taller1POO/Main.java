@@ -16,7 +16,7 @@ public class Main {
 		
 		//apertura del Scanner y las constantes para el maximo
 		Scanner scanner = new Scanner(System.in);
-		int usuariosMaximo= 10;
+		int usuariosMaximo= 3;
 		int registrosMaximos= 300;
 		String usuarioActual="";
 		//listas para los usuarios
@@ -400,6 +400,52 @@ public class Main {
 						System.out.println("no hay actividades para evaluar");
 					}
 					
+				}else if(opcionAnalisis==2) {
+					//actividad por usuario
+					if(registrosTotales>0) {
+						System.out.println("Actividades realizadas por usuario: ");
+						for(int i=0;i<usuariosTotales;i++) {
+							String usuario = usuarioNombres[i];
+							String[] actividades = new String[registrosMaximos];
+							int[] conteos= new int[registrosMaximos];
+							int totalActividadesUnicas=0;
+							
+							for(int j=0;j<registrosTotales;j++) {
+								if(registroUsuario[j].equals(usuario)) {
+									String actividadActual= registroActividad[j];
+									boolean encontrada = false;
+									
+									for(int z=0;z<totalActividadesUnicas;z++) {
+										if(actividades[z].equals(actividadActual)) {
+											conteos[z]+=registroHoras[z];
+											encontrada=true;
+											break;
+										}
+									}
+									if(!encontrada) {
+										actividades[totalActividadesUnicas]=actividadActual;
+										conteos[totalActividadesUnicas]=registroHoras[j];
+										totalActividadesUnicas++;
+									}
+								}
+							}
+							
+							if(totalActividadesUnicas>0) {
+								int horasMaximas= -1;
+								String actividadMaxima="";
+								for(int j=0;j<totalActividadesUnicas;j++) {
+									if(conteos[j]>horasMaximas) {
+										horasMaximas=conteos[j];
+										actividadMaxima=actividades[j];
+									}
+								}
+								System.out.println(usuario+" >>> "+actividadMaxima+" con "+horasMaximas+" horas");
+							}else {
+								System.out.println("no hay actividades");
+							}
+							
+						}
+					}
 				}
 				
 			}
