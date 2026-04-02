@@ -345,6 +345,28 @@ public class Main {
 				} else {
 					System.out.println("Usuario y/o contraseña incorrecto/s :c");
 				}
+			}else if(opcion==2) {
+				//aca esta el menu de analisis
+				int opcionAnalisis = 0;
+				System.out.println("Menu Analisis");
+				System.out.println("1) Actividad mas realizada global");
+				System.out.println("2) Actividad mas realizada por usuario");
+				System.out.println("3) Usuario con mayor procastinacion");
+				System.out.println("4) Ver todas las actividades");
+				System.out.println("5) Salir");
+				System.out.print("Seleccione: ");
+				
+				try {
+					opcionAnalisis= Integer.parseInt(scanner.nextLine());
+				}catch(NumberFormatException e) {
+					System.out.println("Error no valido");
+					opcionAnalisis=0;
+				}
+				
+				if(opcionAnalisis==1) {
+					
+				}
+				
 			}
 		}while(opcion!=3);
 		
