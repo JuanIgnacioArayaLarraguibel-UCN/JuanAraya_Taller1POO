@@ -4,10 +4,10 @@ package JuanAraya_Taller1POO;
 public class Main {
 	
 	//Esto es la capacidad maxima para los vectores
-	private static int alumnosMaximos =100;
-	private static int solicitudesMaximas =100;
-	private static int admitidosMaximos =100;
-	private static int rechazadosMaximos =100;
+	public static int alumnosMaximos =100;
+	public static int solicitudesMaximas =100;
+	public static int admitidosMaximos =100;
+	public static int rechazadosMaximos =100;
 	
 	
 
