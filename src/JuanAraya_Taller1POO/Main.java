@@ -96,6 +96,65 @@ public class Main {
 	}
 
 
+	private static void procesarSolicitudes() {
+		if(!cargandoArchivos) {
+			System.out.println("Debe cargar los archivos primero");
+			return; 
+		}
+		System.out.println("Procesando solicitudes...");
+		admitidosTotales=0;
+		rechazadosTotales=0;
+		
+		for(int i=0; i<solicitudesTotales;i++ ) {
+			String nombre = nombreSolicitudes[i];
+			String apellido = apellidoSolicitudes[i];
+			boolean encontrado= false;
+			int indiceAlumno= -1;
+			for(int j=0; j< alumnosTotales; j++) {
+				if(nombreAlumnos[j].equalsIgnoreCase(nombre)&&apellidoAlumnos[j].equalsIgnoreCase(apellido)) {
+					encontrado= true;
+					indiceAlumno=j;
+					break;
+				}
+			}
+			if(encontrado) {
+				//al ser True pasa el if
+				boolean yaAdmitido=false; //esto para evitar que salgan Duplicados
+				for(int a=0;a<admitidosTotales;a++) {
+					if(nombresAdmitidos[a].equalsIgnoreCase(nombre)&&apellidosAdmitidos[a].equalsIgnoreCase(apellido)) {
+						yaAdmitido= true;
+						break;
+					}
+				}
+				if(!yaAdmitido&&admitidosTotales<admitidosMaximos) {
+					nombresAdmitidos[admitidosTotales]= nombreAlumnos[indiceAlumno];
+					apellidosAdmitidos[admitidosTotales]= apellidoAlumnos[indiceAlumno];
+					rutsAdmitidos[admitidosTotales]= rutAlumnos[indiceAlumno];
+					paralelosAdmitidos[admitidosTotales]= paraleloAlumnos[indiceAlumno];
+					admitidosTotales++;
+					System.out.println("ADMITIDO: "+nombre+" "+apellido+" en paralelo "+paraleloAlumnos[indiceAlumno]);
+					
+				}else if(yaAdmitido) {
+					System.out.println("DUPLICADO: "+nombre+" "+apellido+" está ya admitido");
+				}else {
+					System.out.println("ERROR no hay espacio");
+				}
+			}else {
+				//parte de rechazados
+				if(rechazadosTotales<rechazadosMaximos) {
+					nombresRechazados[rechazadosTotales]=nombre;
+					apellidosRechazados[rechazadosTotales]=apellido;
+					rutsRechazados[rechazadosTotales]="";
+					rechazadosTotales++;
+					System.out.println("RECHAZADO: "+nombre+" "+apellido+" no es parte de ningun paralelo");
+				}
+			}
+		}
+		System.out.println("Resumen: "+admitidosTotales+" admitidos - "+ rechazadosTotales+" rechazados");
+		
+	}
+
+
 	private static void cargarArchivos(Scanner scanner) {
 		System.out.println("Cargando Archivos...");
 		cargarAlumnos();
