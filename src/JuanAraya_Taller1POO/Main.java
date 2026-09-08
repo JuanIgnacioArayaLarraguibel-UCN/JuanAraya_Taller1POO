@@ -28,7 +28,10 @@ public class Main {
 	public static String[] rutsRechazados= new String[rechazadosMaximos];
 	public static int rechazadosTotales=0;
 	
-	
+	//el control para los reportes de los Paralelos
+	public static int controlC1=0;
+	public static int controlC2=0;
+	public static int controlRechazados=0;
 
 	public static void main(String[] args) {
 		
