@@ -1,7 +1,10 @@
 package JuanAraya_Taller1POO;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.BufferedWriter;
 import java.io.File;
 
 //Juan Ignacio Araya Larraguibel - 21.566.260-8 - ITI
@@ -93,6 +96,84 @@ public class Main {
 		
 		
 
+	}
+
+
+	private static void generarReporte(Scanner scanner) {
+
+		if(!cargandoArchivos) {
+			System.out.println("Debe cargar los archivos primero");
+			return;
+		}
+		System.out.println("Generar Reporte=");
+		System.out.println("1) Reporte C1");
+		System.out.println("2) Reporte C2");
+		System.out.println("3) Reporte de Rechazados");
+		System.out.print("Ingrese opción: ");
+		
+		int opcion = 0;
+		try {
+			opcion= scanner.nextInt();			
+		}catch(Exception e) {
+			System.out.println("Ingresar opción válida");
+			return;
+		}
+		if(opcion ==1) {
+			controlC1++;
+			generarReporteParalelo("C1",controlC1);
+		} else if (opcion == 2) {
+	        controlC2++;
+	        generarReporteParalelo("C2", controlC2);
+	    } else if (opcion == 3) {
+	        controlRechazados++;
+	        generarReporteRechazados(controlRechazados);
+	    } else {
+	        System.out.println("Opción inválida.");
+	    }
+		//Ya para esto pedí ayuda a la IA para ir con el BufferedWriter
+		
+	}
+	
+	public static void generarReporteParalelo(String paralelo, int version) {
+	    String nombreArchivo = "Reporte" + paralelo + "-V" + version + ".txt";
+	    try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo))) {
+	        bw.write("=== Miembros del grupo - Paralelo " + paralelo + " ===");
+	        bw.newLine();
+	        boolean hayMiembros = false;
+	        for (int i = 0; i < admitidosTotales; i++) {
+	            if (paralelosAdmitidos[i].equalsIgnoreCase(paralelo)) {
+	                bw.write(nombresAdmitidos[i] + " " + apellidosAdmitidos[i] + " - " + rutsAdmitidos[i]);
+	                bw.newLine();
+	                hayMiembros = true;
+	            }
+	        }
+	        if (!hayMiembros) {
+	            bw.write("(No hay miembros en este paralelo)");
+	            bw.newLine();
+	        }
+	        System.out.println("Reporte generado: " + nombreArchivo);
+	    } catch (IOException e) {
+	        System.out.println("Error al generar reporte: " + e.getMessage());
+	    }
+	}
+
+	public static void generarReporteRechazados(int version) {
+	    String nombreArchivo = "Rechazados-V" + version + ".txt";
+	    try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo))) {
+	        bw.write("=== Solicitudes rechazadas ===");
+	        bw.newLine();
+	        for (int i = 0; i < rechazadosTotales; i++) {
+	            if (nombresRechazados[i].isEmpty() && apellidosRechazados[i].isEmpty()) {
+	                bw.write("Sin nombre registrado, RUT: " + rutsRechazados[i]);
+	            } else {
+	                bw.write(nombresRechazados[i] + " " + apellidosRechazados[i] + " - No pertenece a ningún paralelo del curso");
+	            }
+	            bw.newLine();
+	        }
+	        System.out.println("Reporte generado: " + nombreArchivo);
+	    } catch (IOException e) {
+	        System.out.println("Error al generar reporte: " + e.getMessage());
+	    }
 	}
 
 
