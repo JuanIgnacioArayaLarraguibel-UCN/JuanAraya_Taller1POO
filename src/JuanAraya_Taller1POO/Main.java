@@ -1,6 +1,8 @@
 package JuanAraya_Taller1POO;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.File;
 
 //Juan Ignacio Araya Larraguibel - 21.566.260-8 - ITI
 
@@ -92,5 +94,63 @@ public class Main {
 		
 
 	}
+
+
+	private static void cargarArchivos(Scanner scanner) {
+		System.out.println("Cargando Archivos...");
+		cargarAlumnos();
+		cargarSolicitudes();
+		if(alumnosTotales > 0||solicitudesTotales>0) {
+			cargandoArchivos= true;
+			System.out.println("Archivos cargados exitosamente YEI");
+			System.out.println("-"+alumnosTotales+" alumnos en la lista");
+			System.out.println("-"+solicitudesTotales+" solicitudes de ingreso");
+		}else {
+			System.out.println("No se cargaron los archivos UnU");
+		}
+		
+		
+		
+	}
+
+
+	private static void cargarAlumnos() {
+		try (Scanner scannerArchivo = new Scanner(new File("Alumnos.txt"))){
+			alumnosTotales=0;
+			while(scannerArchivo.hasNextLine() && alumnosTotales<alumnosMaximos) {
+				String linea= scannerArchivo.nextLine();
+				String[] partes= linea.split(";");
+				nombreAlumnos[alumnosTotales]= partes[0];
+				apellidoAlumnos[alumnosTotales]= partes[1];
+				rutAlumnos[alumnosTotales]= partes[2];
+				paraleloAlumnos[alumnosTotales]= partes[3].toUpperCase(); //esto pa evitar problemas con mayuscula y minuscula
+				alumnosTotales++;
+			}
+			
+		}catch(FileNotFoundException e) {
+			System.out.println("txt de Alumnos.txt no encontrado :/");
+		}
+		
+	}
+	
+	private static void cargarSolicitudes() {
+		try (Scanner scannerArchivo = new Scanner(new File("Solicitudes.txt"))){
+			solicitudesTotales=0;
+			while(scannerArchivo.hasNextLine() && solicitudesTotales < solicitudesMaximas) {
+				String linea = scannerArchivo.nextLine();
+				String[] partes = linea.split("-");
+				nombreSolicitudes[solicitudesTotales]= partes[0];
+				apellidoSolicitudes[solicitudesTotales]= partes[1];
+				solicitudesTotales++;
+			}
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("txt de Solicitudes.txt no encontrado OnO");
+		}
+		
+	}
+
+
+
 
 }
