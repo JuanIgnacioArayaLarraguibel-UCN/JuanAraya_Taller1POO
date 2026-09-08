@@ -32,6 +32,9 @@ public class Main {
 	public static int controlC1=0;
 	public static int controlC2=0;
 	public static int controlRechazados=0;
+	
+	//booleano para notificar si se cargaron los archivos o no para no tener Error
+	public static boolean cargandoArchivos= false;
 
 	public static void main(String[] args) {
 		
