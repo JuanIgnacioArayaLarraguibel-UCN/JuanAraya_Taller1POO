@@ -290,7 +290,48 @@ public class Main {
 		
 	}
 
+	public static void administrarCurso(Scanner scanner) {
+	    if (!cargandoArchivos) {
+	        System.out.println("Debe cargar los archivos primero");
+	        return;
+	    }
 
+	    int opcion = 0;
+	    do {
+	        System.out.println("Administración del curso=");
+	        System.out.println("1) Cambiar paralelo de un alumno");
+	        System.out.println("2) Eliminar alumno del curso");
+	        System.out.println("3) Inscribir alumno nuevo");
+	        System.out.println("4) Regresar");
+	        System.out.print("Ingrese una opción: ");
+	        
+	        try {
+	            opcion = scanner.nextInt();
+	            
+	            switch (opcion) {
+	                case 1:
+	                    cambiarParalelo(scanner);
+	                    break;
+	                case 2:
+	                    eliminarAlumno(scanner);
+	                    break;
+	                case 3:
+	                    inscribirAlumnoNuevo(scanner);
+	                    break;
+	                case 4:
+	                    System.out.println("Regresando...");
+	                    break;
+	                default:
+	                    System.out.println("Ingresar opción valida");
+	            }
+	        } catch (Exception e) {
+	            System.out.println("Ingresar opción valida");
+	            
+	        }
+	    } while (opcion != 4);
+	}
+	
+	
 
 
 }
