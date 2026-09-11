@@ -330,6 +330,63 @@ public class Main {
 	        }
 	    } while (opcion != 4);
 	}
+
+
+	public static void cambiarParalelo(Scanner scanner) {
+	    System.out.print("Ingrese RUT del alumno: ");
+	    String rut = scanner.nextLine().trim();
+	    
+	    int indice = buscarAlumnoPorRut(rut);
+	    if (indice == -1) {
+	        System.out.println("Alumno no encontrado.");
+	        return;
+	    }
+
+	    System.out.println("Alumno: " + nombreAlumnos[indice] + " " + apellidoAlumnos[indice] +
+	                       " (actualmente en " + paraleloAlumnos[indice] + ")");
+	    
+	    System.out.print("Nuevo paralelo (C1/C2): ");
+	    String nuevoParalelo = scanner.nextLine().trim().toUpperCase();
+
+	    if (!nuevoParalelo.equals("C1") && !nuevoParalelo.equals("C2")) {
+	        System.out.println("Paralelo inválido.");
+	        return;
+	    }
+
+	    paraleloAlumnos[indice] = nuevoParalelo;
+
+	    for (int i = 0; i < admitidosTotales; i++) {
+	        if (rutsAdmitidos[i].equalsIgnoreCase(rut)) {
+	            paralelosAdmitidos[i] = nuevoParalelo;
+	            break;
+	        }
+	    }
+
+	    guardarAlumnos();
+	    System.out.println("Paralelo actualidado guardando en Alumnos.txt");
+	}
+
+
+	public static int buscarAlumnoPorRut(String rut) {
+    for (int i = 0; i < alumnosTotales; i++) {
+        if (rutAlumnos[i].equalsIgnoreCase(rut)) {
+            return i;
+        }
+    }
+    return -1;
+}
+	//otra parte con el BufferedWriter...
+	public static void guardarAlumnos() {
+	    try (BufferedWriter bw = new BufferedWriter(new FileWriter("Alumnos.txt"))) {
+	        for (int i = 0; i < alumnosTotales; i++) {
+	            bw.write(nombreAlumnos[i] + ";" + apellidoAlumnos[i] + ";" +
+	                     rutAlumnos[i] + ";" + paraleloAlumnos[i]);
+	            bw.newLine();
+	        }
+	    } catch (IOException e) {
+	        System.out.println("Error al guardar Alumnos.txt: " + e.getMessage());
+	    }
+	}
 	
 	
 
