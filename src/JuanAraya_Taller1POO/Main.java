@@ -332,9 +332,55 @@ public class Main {
 	}
 
 
+	private static void eliminarAlumno(Scanner scanner) {
+		System.out.println("Ingresar rut de alumno a eliminar");
+		String rut = scanner.nextLine();
+		
+		int indice= buscarAlumnosPorRut(rut);
+		if(indice== -1) {
+			System.out.println("rut no encontrado");
+			return;
+		}
+		System.out.println("Eliminando a: "+nombreAlumnos[indice]+" "+apellidoAlumnos[indice]);
+		
+		for(int i= indice;i<alumnosTotales-1;i++) {
+			nombreAlumnos[i]= nombreAlumnos[i+1];
+			apellidoAlumnos[i]= apellidoAlumnos[i+1];
+	        rutAlumnos[i]= rutAlumnos[i+1];
+	        paraleloAlumnos[i]= paraleloAlumnos[i+1];
+		}
+		alumnosTotales--;
+		
+		for (int i = 0; i < admitidosTotales; i++) {
+	        if (rutsAdmitidos[i].equalsIgnoreCase(rut)) {
+	            for (int j = i; j < admitidosTotales-1; j++) {
+	                nombresAdmitidos[j]= nombresAdmitidos[j+1];
+	                apellidosAdmitidos[j]= apellidosAdmitidos[j+1];
+	                rutsAdmitidos[j]= rutsAdmitidos[j+1];
+	                paralelosAdmitidos[j]= paralelosAdmitidos[j+1];
+	            }
+	            admitidosTotales--;
+	            break;
+	        }
+	    }
+		guardarAlumnos();
+		System.out.println("Alumno eliminado");
+	}
+
+
+	public static int buscarAlumnosPorRut(String rut) {
+	    for (int i = 0; i < alumnosTotales; i++) {
+	        if (rutAlumnos[i].equalsIgnoreCase(rut)) {
+	            return i;
+	        }
+	    }
+	    return -1;
+	}
+
+
 	public static void cambiarParalelo(Scanner scanner) {
 	    System.out.print("Ingrese RUT del alumno: ");
-	    String rut = scanner.nextLine().trim();
+	    String rut = scanner.nextLine();
 	    
 	    int indice = buscarAlumnoPorRut(rut);
 	    if (indice == -1) {
