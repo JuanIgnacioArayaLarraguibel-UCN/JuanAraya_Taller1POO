@@ -332,6 +332,48 @@ public class Main {
 	}
 
 
+	public static void inscribirAlumnoNuevo(Scanner scanner) {
+	    if (alumnosTotales >= alumnosMaximos) {
+	        System.out.println("No hay espacio");
+	        return;
+	    }
+
+	    System.out.print("Ingrese nombre: ");
+	    String nombre = scanner.nextLine();
+	    System.out.print("Ingrese apellido: ");
+	    String apellido = scanner.nextLine();
+	    System.out.print("Ingrese RUT: ");
+	    String rut = scanner.nextLine();
+	    System.out.print("Ingrese paralelo (C1/C2): ");
+	    //esto es para no tener problemas con mayusculas ni minusculas
+	    String paralelo = scanner.nextLine().toUpperCase();
+
+	    if (nombre.isEmpty() || apellido.isEmpty() || rut.isEmpty()) {
+	        System.out.println("Todos los campos son obligatorios.");
+	        return;
+	    }
+	    
+	    if (!paralelo.equals("C1") && !paralelo.equals("C2")) {
+	        System.out.println("Paralelo inválido.");
+	        return;
+	    }
+	    
+	    if (buscarAlumnoPorRut(rut) != -1) {
+	        System.out.println("El RUT ya está registrado.");
+	        return;
+	    }
+
+	    nombreAlumnos[alumnosTotales] = nombre;
+	    apellidoAlumnos[alumnosTotales] = apellido;
+	    rutAlumnos[alumnosTotales] = rut;
+	    paraleloAlumnos[alumnosTotales] = paralelo;
+	    alumnosTotales++;
+
+	    guardarAlumnos();
+	    System.out.println("Alumno inscrito en el curso");
+	}
+
+
 	private static void eliminarAlumno(Scanner scanner) {
 		System.out.println("Ingresar rut de alumno a eliminar");
 		String rut = scanner.nextLine();
