@@ -1,5 +1,5 @@
 package JuanAraya_Taller1POO;
-
+//Juan Ignacio Araya Larraguibel - 21.566.260-8 - ITI
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.io.BufferedWriter;
 import java.io.File;
 
-//Juan Ignacio Araya Larraguibel - 21.566.260-8 - ITI
+
 
 public class Main {
 	
@@ -96,6 +96,57 @@ public class Main {
 		
 		
 
+	}
+
+
+	private static void analisisEstadistico() {
+		if(!cargandoArchivos) {
+			System.out.println("Archivos no están cargados :'v");
+			return;
+		}
+		
+		System.out.println("Analisis estadistico=");
+		int intentosTotales= admitidosTotales +rechazadosTotales;
+		if(intentosTotales==0) {
+			System.out.println("No hay intentos");
+			return;
+		}
+		
+		double porcentajeRechazo= (double)rechazadosTotales/intentosTotales*100;
+		double porcentajeRechazadoRedondeo= Math.round(porcentajeRechazo*10)/10.0;//el round es para redondear super facil
+		System.out.println("Intentos de ingreso totales: "+intentosTotales);
+		System.out.println("Rechazados: "+rechazadosTotales+" "+porcentajeRechazadoRedondeo+"%");
+		//para ver los paralelos
+		int c1= 0;
+		int c2= 0;
+		for(int i=0;i<admitidosTotales;i++) {
+			if(paralelosAdmitidos[i].equals("C1")) {
+				c1++;
+			}else {
+				c2++;
+			}
+		}
+		System.out.println("Admitidos por paralelo= C1: "+c1+" ; C2: "+c2);
+		if(admitidosTotales>0) {
+			double porcentajeC1= (double)c1/admitidosTotales*100;
+	        double porcentajeC2= (double)c2/admitidosTotales*100;
+	        double porcentajeC1Redondeado= Math.round(porcentajeC1*10)/10.0;
+	        double porcentajeC2Redondeado= Math.round(porcentajeC2*10)/10.0;
+	        System.out.println("Porcentaje C1: " + porcentajeC1Redondeado + "% ; C2: " + porcentajeC2Redondeado + "%");
+		}
+		
+		double admisionTasa= (double) admitidosTotales/intentosTotales*100;
+		double admisionTasaRedondeada= Math.round(admisionTasa*10)/10.0;
+		System.out.println("Tasa de admision: "+admisionTasaRedondeada+"%");
+		
+		int anonimo=0;
+		for(int i=0;i<rechazadosTotales;i++) {
+			if(nombresRechazados[i].isEmpty()&&apellidosRechazados[i].isEmpty()) {
+				anonimo++;
+			}
+		}
+		System.out.println("Rechazados sin nombre solo rut: "+anonimo);
+		
 	}
 
 
