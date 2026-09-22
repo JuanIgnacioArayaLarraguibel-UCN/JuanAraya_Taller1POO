@@ -139,6 +139,55 @@ public class Main {
 	}
 
 
+	private static void inscribirPorNombre(String nombre, String apellido) {
+		if(nombre.isEmpty()||apellido.isEmpty()) {
+			System.out.println("Nombre y apellido están vacios");
+			return;
+		}
+		boolean encontrado = false;
+		for(int i = 0;i<alumnosTotales;i++) {
+			if(nombreAlumnos[i].equalsIgnoreCase(nombre)&&apellidoAlumnos[i].equalsIgnoreCase(apellido)) {
+				encontrado=true;
+				
+				boolean admitido = false;
+				for(int j=0;j<admitidosTotales;j++) {
+					if(nombresAdmitidos[j].equalsIgnoreCase(nombre)&&apellidosAdmitidos[j].equalsIgnoreCase(apellido)) {
+						admitido = true;
+						break;
+					}
+				}
+				
+				if(!admitido&&admitidosTotales<admitidosMaximos) {
+					nombresAdmitidos[admitidosTotales]=nombreAlumnos[i];
+					apellidosAdmitidos[admitidosTotales]=apellidoAlumnos[i];
+					rutsAdmitidos[admitidosTotales]=rutAlumnos[i];
+					paralelosAdmitidos[admitidosTotales]=paraleloAlumnos[i];
+					admitidosTotales++;
+					System.out.println("Admitido: "+nombre+" "+apellido+" = "+" admitido en "+paraleloAlumnos[i]);
+				}else if(admitido) {
+					System.out.println("ya está el alumno");
+				}else {
+					System.out.println("no hay espacio");
+				}
+				break;
+			}
+		}
+		if(!encontrado) {
+			if(rechazadosTotales<rechazadosMaximos) {
+				nombresRechazados[rechazadosTotales]=nombre;
+				apellidosRechazados[rechazadosTotales]=apellido;
+				rutsRechazados[rechazadosTotales]= "";
+				rechazadosTotales++;
+				System.out.println("Rechazado: "+nombre+" "+apellido+ " = No pertence a ningun paralelo");
+				
+			}else {
+				System.out.println("no hay espacio");
+			}
+		}
+		
+	}
+
+
 	private static void analisisEstadistico() {
 		if(!cargandoArchivos) {
 			System.out.println("Archivos no están cargados :'v");
