@@ -99,6 +99,46 @@ public class Main {
 	}
 
 
+	private static void inscripcionManual(Scanner scanner) {
+		if(!cargandoArchivos) {
+			System.out.println("Archivos no cargados");
+			return;
+		}
+		
+		System.out.println("Inscripcion Manual - Elegir opción");
+		System.out.println("1) Por Nombre completo");
+		System.out.println("2) Por Rut");
+		System.out.print("Elija: ");
+		
+		int opcion= 0;
+		
+		try {
+			opcion = scanner.nextInt();
+			scanner.nextLine();
+		}catch(Exception e){
+			System.out.println("Ingresar opcion valida");
+			scanner.nextLine();	
+			return;
+		}
+		
+		if(opcion==1) {
+			System.out.print("Ingresar nombre: ");
+			String nombre = scanner.nextLine();
+			System.out.print("Ingresar apellido: ");
+			String apellido = scanner.nextLine();
+			inscribirPorNombre(nombre, apellido);
+		}else if(opcion == 2) {
+			System.out.print("Ingresar rut: ");
+			String rut = scanner.nextLine();
+			inscribirPorRut(rut);
+		}else {
+			System.out.println("Opcion invalida");
+		}
+		
+		
+	}
+
+
 	private static void analisisEstadistico() {
 		if(!cargandoArchivos) {
 			System.out.println("Archivos no están cargados :'v");
