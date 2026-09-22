@@ -8,7 +8,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 
 
-
 public class Main {
 	
 	//Esto es la capacidad maxima para los vectores
@@ -90,6 +89,7 @@ public class Main {
 				}
 			}catch(Exception e){
 				System.out.println("Ingresar opción válida");
+				scanner.nextLine(); //esto es para romper la cadena y no se ejecute infinitamente si se coloca una letra
 			}
 		}while(opcion!=7);
 		scanner.close();
@@ -211,7 +211,7 @@ public class Main {
 	public static void generarReporteRechazados(int version) {
 	    String nombreArchivo = "Rechazados-V" + version + ".txt";
 	    try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo))) {
-	        bw.write("=== Solicitudes rechazadas ===");
+	        bw.write("Solicitudes rechazadas");
 	        bw.newLine();
 	        for (int i = 0; i < rechazadosTotales; i++) {
 	            if (nombresRechazados[i].isEmpty() && apellidosRechazados[i].isEmpty()) {
@@ -485,7 +485,7 @@ public class Main {
 	                       " (actualmente en " + paraleloAlumnos[indice] + ")");
 	    
 	    System.out.print("Nuevo paralelo (C1/C2): ");
-	    String nuevoParalelo = scanner.nextLine().trim().toUpperCase();
+	    String nuevoParalelo = scanner.nextLine().toUpperCase();
 
 	    if (!nuevoParalelo.equals("C1") && !nuevoParalelo.equals("C2")) {
 	        System.out.println("Paralelo inválido.");
