@@ -139,6 +139,58 @@ public class Main {
 	}
 
 
+	public static void inscribirPorRut(String rut) {
+    if (rut.isEmpty()) {
+        System.out.println("El RUT no puede estar vacío.");
+        return;
+    }
+
+    boolean encontrado = false;
+    for (int i = 0; i < alumnosTotales; i++) {
+        if (rutAlumnos[i].equalsIgnoreCase(rut)) {
+            encontrado = true;
+            
+            // Verifica si está duplicado o no
+            boolean yaAdmitido = false;
+            for (int j = 0; j < admitidosTotales; j++) {
+                if (rutsAdmitidos[j].equalsIgnoreCase(rut)) {
+                    yaAdmitido = true;
+                    break;
+                }
+            }
+            
+            if (!yaAdmitido && admitidosTotales < admitidosMaximos) {
+                nombresAdmitidos[admitidosTotales] = nombreAlumnos[i];
+                apellidosAdmitidos[admitidosTotales] = apellidoAlumnos[i];
+                rutsAdmitidos[admitidosTotales] = rutAlumnos[i];
+                paralelosAdmitidos[admitidosTotales] = paraleloAlumnos[i];
+                admitidosTotales++;
+                System.out.println("[OK] " + nombreAlumnos[i] + " " + apellidoAlumnos[i] + " admitido en " + paraleloAlumnos[i]);
+            } else if (yaAdmitido) {
+                System.out.println("El alumno ya está en el grupo.");
+            } else {
+                System.out.println("No hay espacio para más admitidos.");
+            }
+            break;
+        }
+    }
+    
+    if (!encontrado) {
+        // Registrar en rechazados
+        if (rechazadosTotales < rechazadosMaximos) {
+            nombresRechazados[rechazadosTotales] = "";
+            apellidosRechazados[rechazadosTotales] = "";
+            rutsRechazados[rechazadosTotales] = rut;
+            rechazadosTotales++;
+            System.out.println("El RUT " + rut + " no pertenece a ningún paralelo del curso.");
+            System.out.println("No tenemos su nombre, por lo que se registrará solo el RUT en los rechazados.");
+        } else {
+            System.out.println("No hay espacio para más rechazados.");
+        }
+    }
+}
+
+
 	private static void inscribirPorNombre(String nombre, String apellido) {
 		if(nombre.isEmpty()||apellido.isEmpty()) {
 			System.out.println("Nombre y apellido están vacios");
