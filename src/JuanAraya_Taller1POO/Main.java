@@ -518,6 +518,7 @@ public class Main {
 	            }
 	        } catch (Exception e) {
 	            System.out.println("Ingresar opción valida");
+	            scanner.nextLine();//otro para saltar y no tenga while infinito
 	            
 	        }
 	    } while (opcion != 4);
