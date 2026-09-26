@@ -62,6 +62,7 @@ public class Main {
 			
 			try {
 				opcion = scanner.nextInt();
+				scanner.nextLine();
 				switch(opcion) {
 				case 1:
 					cargarArchivos(scanner);
@@ -305,7 +306,8 @@ public class Main {
 		
 		int opcion = 0;
 		try {
-			opcion= scanner.nextInt();			
+			opcion= scanner.nextInt();	
+			scanner.nextLine();
 		}catch(Exception e) {
 			System.out.println("Ingresar opción válida");
 			return;
@@ -499,7 +501,7 @@ public class Main {
 	        
 	        try {
 	            opcion = scanner.nextInt();
-	            
+	            scanner.nextLine();
 	            switch (opcion) {
 	                case 1:
 	                    cambiarParalelo(scanner);
@@ -617,6 +619,7 @@ public class Main {
 	    System.out.print("Ingrese RUT del alumno: ");
 	    String rut = scanner.nextLine();
 	    
+	    // Buscar el alumno por RUT
 	    int indice = buscarAlumnoPorRut(rut);
 	    if (indice == -1) {
 	        System.out.println("Alumno no encontrado.");
@@ -627,7 +630,7 @@ public class Main {
 	                       " (actualmente en " + paraleloAlumnos[indice] + ")");
 	    
 	    System.out.print("Nuevo paralelo (C1/C2): ");
-	    String nuevoParalelo = scanner.nextLine().toUpperCase();
+	    String nuevoParalelo = scanner.nextLine().trim().toUpperCase();
 
 	    if (!nuevoParalelo.equals("C1") && !nuevoParalelo.equals("C2")) {
 	        System.out.println("Paralelo inválido.");
@@ -641,10 +644,11 @@ public class Main {
 	            paralelosAdmitidos[i] = nuevoParalelo;
 	            break;
 	        }
-	    }
+	    }//tuve que rehacer esto debido a que se bugueó
 
+	    // Guardar cambios en el archivo
 	    guardarAlumnos();
-	    System.out.println("Paralelo actualidado guardando en Alumnos.txt");
+	    System.out.println("Paralelo actualizado! Cambios guardados en Alumnos.txt");
 	}
 
 
